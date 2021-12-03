@@ -1,0 +1,13 @@
+[{
+    "id": 1,
+    "todo": "Create dart server",
+    "description": "Create dart server using shelf packages."
+},{
+    "id": 2,
+    "todo": "Implement router",
+    "description": "Implement router for the request handling."
+},{
+    "id": 3,
+    "todo": "Create JSON file",
+    "description": "Create JSON file to parse it with request."
+}]
