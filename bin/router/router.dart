@@ -8,6 +8,7 @@ final router = Router()
   ..get('/todos', _getTodos)
   ..get('/todo/<id>', _getTodoByID)
   ..post('/add-todo', _addTodo)
+  ..patch('/todo-done/<id>', _todoDone)
   ..delete('/delete-todo/<id>', _deleteTodo)
   ..put('/update-todo', _updateTodo);
 
@@ -49,4 +50,17 @@ Future<Response> _updateTodo(Request request) async {
   final parsedId = todo['id'];
   allTodos[allTodos.indexWhere((element) => element['id'] == parsedId)] = todo;
   return Response.ok('Todo Updated');
+}
+
+Future<Response> _todoDone(Request request, String id) async {
+  final parsedId = int.tryParse(id);
+  final payload = await request.readAsString();
+  final todoStatus = json.decode(payload);
+  final updatedTodo = allTodos[allTodos.indexWhere((element) => element['id'] == parsedId)]['isDone'] = todoStatus['isDone'];
+
+  if (updatedTodo == false) {
+    return Response.ok('Todo is not done!');
+  } else {
+    return Response.ok('Todo is done!');
+  }
 }
