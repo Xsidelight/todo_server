@@ -35,7 +35,7 @@ Response _getTodoByID(Request request, String id) {
 Future<Response> _addTodo(Request request) async {
   final payload = await request.readAsString();
   allTodos.add(json.decode(payload));
-  return Response.ok(payload, headers: {'Content-Type': 'application/json'});
+  return Response.ok('Todo successfully added!');
 }
 
 Response _deleteTodo(Request request, String id) {
@@ -56,7 +56,9 @@ Future<Response> _todoDone(Request request, String id) async {
   final parsedId = int.tryParse(id);
   final payload = await request.readAsString();
   final todoStatus = json.decode(payload);
-  final updatedTodo = allTodos[allTodos.indexWhere((element) => element['id'] == parsedId)]['isDone'] = todoStatus['isDone'];
+  final updatedTodo =
+      allTodos[allTodos.indexWhere((element) => element['id'] == parsedId)]
+          ['isDone'] = todoStatus['isDone'];
 
   if (updatedTodo == false) {
     return Response.ok('Todo is not done!');
